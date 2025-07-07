@@ -20,30 +20,66 @@ app.use(cors({
 app.use(express.json());
 
 // Twitter API configuration
+const TWITTER_API_KEY = process.env.TWITTER_API_KEY || '3EHjem8Dw5umkppACEydt9glW';
+const TWITTER_API_SECRET = process.env.TWITTER_API_SECRET || 'hq0bSAcLBfm1fKpuHjW2ser6cS8LMXeuF3orASeJXp6Hrt60yq';
 const TWITTER_BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 const TWITTER_API_BASE = 'https://api.twitter.com/2';
 
 // Helper function to make Twitter API requests
 async function fetchTwitterData(endpoint) {
-  if (!TWITTER_BEARER_TOKEN) {
-    throw new Error('Twitter Bearer Token not configured');
+  // Try Bearer Token first, then fall back to API Key/Secret
+  let headers;
+  
+  if (TWITTER_BEARER_TOKEN) {
+    headers = {
+      'Authorization': `Bearer ${TWITTER_BEARER_TOKEN}`,
+      'Content-Type': 'application/json',
+    };
+  } else if (TWITTER_API_KEY && TWITTER_API_SECRET) {
+    // For API Key/Secret, we need to generate a Bearer Token
+    const bearerToken = await generateBearerToken();
+    headers = {
+      'Authorization': `Bearer ${bearerToken}`,
+      'Content-Type': 'application/json',
+    };
+  } else {
+    throw new Error('Twitter API credentials not configured');
   }
   
   const response = await fetch(`${TWITTER_API_BASE}${endpoint}`, {
-    headers: {
-      'Authorization': `Bearer ${TWITTER_BEARER_TOKEN}`,
-      'Content-Type': 'application/json',
-    }
+    headers
   });
   
   if (!response.ok) {
     if (response.status === 429) {
       throw new Error('Rate limit exceeded');
     }
-    throw new Error(`Twitter API error: ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`Twitter API error: ${response.status} - ${errorText}`);
   }
   
   return response.json();
+}
+
+// Generate Bearer Token from API Key/Secret
+async function generateBearerToken() {
+  const credentials = Buffer.from(`${TWITTER_API_KEY}:${TWITTER_API_SECRET}`).toString('base64');
+  
+  const response = await fetch('https://api.twitter.com/oauth2/token', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    },
+    body: 'grant_type=client_credentials'
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to generate Bearer Token');
+  }
+  
+  const data = await response.json();
+  return data.access_token;
 }
 
 // Convert Twitter API response to our format

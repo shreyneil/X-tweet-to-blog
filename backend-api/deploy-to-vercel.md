@@ -5,14 +5,13 @@
 - GitHub account
 - Twitter Developer account (for API access)
 
-## Step 1: Get Your Twitter Bearer Token
+## Step 1: Twitter API Credentials
 
-1. Go to https://developer.twitter.com/
-2. Sign in with your Twitter account
-3. Click "Create App" or go to your existing app
-4. Navigate to "Keys and tokens" tab
-5. Under "Bearer Token", click "Generate" or copy existing token
-6. Save this token - you'll need it for Vercel
+Your Twitter API credentials are already configured:
+- **API Key**: `3EHjem8Dw5umkppACEydt9glW`
+- **API Secret**: `hq0bSAcLBfm1fKpuHjW2ser6cS8LMXeuF3orASeJXp6Hrt60yq`
+
+The backend will automatically generate a Bearer Token from these credentials, or you can provide a Bearer Token directly if you have one.
 
 ## Step 2: Prepare the Backend Code
 
@@ -49,9 +48,18 @@ The backend is already ready in the `backend-api/` folder. It includes:
 
 5. **Add environment variables**:
    ```bash
-   vercel env add TWITTER_BEARER_TOKEN
+   vercel env add TWITTER_API_KEY
+   # Enter: 3EHjem8Dw5umkppACEydt9glW
+   
+   vercel env add TWITTER_API_SECRET
+   # Enter: hq0bSAcLBfm1fKpuHjW2ser6cS8LMXeuF3orASeJXp6Hrt60yq
    ```
-   Paste your Twitter Bearer Token when prompted.
+   
+   Optionally, if you have a Bearer Token:
+   ```bash
+   vercel env add TWITTER_BEARER_TOKEN
+   # Enter your Bearer Token
+   ```
 
 6. **Redeploy with environment variables**:
    ```bash
