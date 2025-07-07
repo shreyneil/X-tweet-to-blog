@@ -46,10 +46,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
             tweets.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
             break;
           case "most-liked":
-            tweets.sort((a, b) => b.likes - a.likes);
+            tweets.sort((a, b) => (b.likes || 0) - (a.likes || 0));
             break;
           case "most-retweeted":
-            tweets.sort((a, b) => b.retweets - a.retweets);
+            tweets.sort((a, b) => (b.retweets || 0) - (a.retweets || 0));
             break;
           default: // newest
             tweets.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());

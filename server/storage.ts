@@ -126,6 +126,8 @@ export class MemStorage implements IStorage {
     const newTimeline: Timeline = {
       ...timeline,
       id,
+      profileImageUrl: timeline.profileImageUrl || null,
+      tweetCount: timeline.tweetCount || 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -155,6 +157,13 @@ export class MemStorage implements IStorage {
     const newTweet: Tweet = {
       ...tweet,
       id,
+      profileImageUrl: tweet.profileImageUrl || null,
+      images: Array.isArray(tweet.images) ? tweet.images : [],
+      likes: tweet.likes || 0,
+      retweets: tweet.retweets || 0,
+      replies: tweet.replies || 0,
+      isThread: tweet.isThread || false,
+      threadContent: Array.isArray(tweet.threadContent) ? tweet.threadContent : null,
     };
     
     const userTweets = this.tweets.get(tweet.username.toLowerCase()) || [];
@@ -180,7 +189,7 @@ export class MemStorage implements IStorage {
       case "text-only":
         return userTweets.filter(tweet => !tweet.images || tweet.images.length === 0);
       case "popular":
-        return userTweets.filter(tweet => tweet.likes > 50);
+        return userTweets.filter(tweet => (tweet.likes || 0) > 50);
       default:
         return userTweets;
     }

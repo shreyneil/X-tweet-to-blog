@@ -18,12 +18,12 @@ export default function TimelineSection({
   sortType,
 }: TimelineSectionProps) {
   const { data: timeline, isLoading: timelineLoading } = useQuery<Timeline>({
-    queryKey: ["/api/timeline", username],
+    queryKey: [`/api/timeline/${username}`],
     enabled: !!username,
   });
 
   const { data: tweets = [], isLoading: tweetsLoading } = useQuery<Tweet[]>({
-    queryKey: ["/api/tweets", username, searchTerm, filterType, sortType],
+    queryKey: [`/api/tweets/${username}?search=${searchTerm}&filter=${filterType}&sort=${sortType}`],
     enabled: !!username,
   });
 
