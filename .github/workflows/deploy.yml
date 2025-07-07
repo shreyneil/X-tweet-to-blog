@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: npm run build
       env:
-        VITE_API_URL: https://your-backend-url.com
+        VITE_API_URL: https://your-tweetblog-api.vercel.app
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

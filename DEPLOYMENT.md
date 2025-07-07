@@ -36,18 +36,44 @@ Since GitHub Pages only serves static files, you'll need to modify the app to wo
 2. **Client-Side Only**: All timeline generation will use the demo timeline
 3. **Static Assets**: All assets will be served from the static build
 
-## Option 2: Full-Stack Deployment
+## Option 2: Hybrid Deployment (Frontend + Separate API)
 
-### Backend Hosting Options:
-1. **Vercel**: Deploy backend as serverless functions
-2. **Netlify**: Use Netlify Functions for backend
-3. **Railway**: Full-stack deployment platform
-4. **Render**: Free tier available for backend hosting
+### Step 1: Deploy the Simple API Backend
+I've created a lightweight backend API in the `backend-api/` folder:
 
-### Frontend on GitHub Pages:
-- Deploy frontend to GitHub Pages
-- Configure API endpoints to point to your hosted backend
-- Set up CORS properly on your backend
+**Quick Deploy to Vercel:**
+```bash
+cd backend-api
+npm install -g vercel
+vercel
+```
+
+**Or deploy to Railway:**
+```bash
+npm install -g @railway/cli
+railway deploy
+```
+
+**Or deploy to Render:**
+1. Create account at render.com
+2. Connect repository and select `backend-api` folder
+3. Set environment variables
+
+### Step 2: Configure Your GitHub Pages Frontend
+1. Update `.github/workflows/deploy.yml` with your API URL:
+   ```yaml
+   env:
+     VITE_API_URL: https://your-api-url.vercel.app
+   ```
+
+2. Deploy frontend to GitHub Pages (automatic on push)
+
+### Backend Features:
+- ✅ Real Twitter API integration
+- ✅ Handles rate limiting and errors
+- ✅ CORS configured for GitHub Pages
+- ✅ Lightweight and fast
+- ✅ Easy deployment to multiple platforms
 
 ## Configuration Files Provided
 
