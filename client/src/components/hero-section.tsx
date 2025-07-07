@@ -50,10 +50,15 @@ export default function HeroSection({ onUsernameSubmit, currentUsername }: HeroS
           Transform Your Tweets into a{" "}
           <span className="text-twitter-blue">Beautiful Timeline</span>
         </h2>
-        <p className="text-xl text-twitter-gray dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-twitter-gray dark:text-gray-300 mb-4 max-w-2xl mx-auto">
           Create a stunning blog-style timeline from your X (Twitter) posts. Include images, maintain
           chronology, and share your thoughts beautifully.
         </p>
+        <div className="bg-twitter-blue/10 dark:bg-twitter-blue/20 border border-twitter-blue/20 dark:border-twitter-blue/30 rounded-lg p-4 mb-8 max-w-2xl mx-auto">
+          <p className="text-twitter-blue dark:text-blue-400 text-sm font-medium">
+            🎉 Now fetching real Twitter data! Try usernames like: elonmusk, twitter, github, or any public account.
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="max-w-md mx-auto mb-8">
           <div className="relative mb-4">

@@ -1,6 +1,7 @@
 import { tweets, timelines, type Tweet, type InsertTweet, type Timeline, type InsertTimeline } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, asc, ilike } from "drizzle-orm";
+import { twitterService } from "./twitter-service";
 
 export interface IStorage {
   // Timeline operations
@@ -17,8 +18,58 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async getTimeline(username: string): Promise<Timeline | undefined> {
-    const [timeline] = await db.select().from(timelines).where(eq(timelines.username, username.toLowerCase()));
-    return timeline || undefined;
+    const cleanUsername = username.toLowerCase();
+    const [timeline] = await db.select().from(timelines).where(eq(timelines.username, cleanUsername));
+    
+    if (timeline) {
+      return timeline;
+    }
+    
+    // If timeline doesn't exist, try to fetch from Twitter and create it
+    try {
+      const twitterTweets = await twitterService.getUserTweets(username);
+      if (twitterTweets.length > 0) {
+        // Create timeline
+        const newTimeline = await this.createTimeline({
+          username: cleanUsername,
+          displayName: twitterTweets[0].displayName,
+          title: `${username}'s Timeline`,
+          description: `Twitter timeline for @${username}`,
+          isPublic: true
+        });
+        
+        // Store tweets in database
+        for (const tweet of twitterTweets) {
+          await this.createTweet({
+            tweetId: tweet.id.toString(),
+            username: tweet.username,
+            displayName: tweet.displayName,
+            content: tweet.content,
+            createdAt: tweet.createdAt,
+            likes: tweet.likes,
+            retweets: tweet.retweets,
+            replies: tweet.replies,
+            images: tweet.images,
+            videos: tweet.videos,
+            hashtags: tweet.hashtags,
+            mentions: tweet.mentions,
+            isThread: tweet.isThread,
+            threadContent: tweet.threadContent,
+            type: tweet.type,
+            isVerified: tweet.isVerified,
+            location: tweet.location,
+            language: tweet.language
+          });
+        }
+        
+        return newTimeline;
+      }
+    } catch (error) {
+      console.error('Failed to fetch from Twitter:', error);
+      // Continue to return undefined if Twitter fetch fails
+    }
+    
+    return undefined;
   }
 
   async createTimeline(insertTimeline: InsertTimeline): Promise<Timeline> {

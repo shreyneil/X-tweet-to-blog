@@ -67,16 +67,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { username } = z.object({ username: z.string() }).parse(req.body);
       
-      // Check if timeline already exists
+      // Check if timeline already exists or create from Twitter
       let timeline = await storage.getTimeline(username);
       
       if (!timeline) {
-        // Create new timeline with mock data
-        timeline = await storage.createTimeline({
-          username,
-          displayName: username.charAt(0).toUpperCase() + username.slice(1),
-          profileImageUrl: null,
-          tweetCount: 0,
+        return res.status(404).json({ 
+          message: `Timeline not found for @${username}. Please check the username or try a different public Twitter account.` 
         });
       }
       
