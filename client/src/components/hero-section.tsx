@@ -44,13 +44,13 @@ export default function HeroSection({ onUsernameSubmit, currentUsername }: HeroS
   };
 
   return (
-    <section className="bg-gradient-to-b from-white to-twitter-bg py-16">
+    <section className="bg-gradient-to-b from-white dark:from-gray-900 to-twitter-bg dark:to-gray-800 py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-twitter-dark mb-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-twitter-dark dark:text-white mb-6">
           Transform Your Tweets into a{" "}
           <span className="text-twitter-blue">Beautiful Timeline</span>
         </h2>
-        <p className="text-xl text-twitter-gray mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-twitter-gray dark:text-gray-300 mb-8 max-w-2xl mx-auto">
           Create a stunning blog-style timeline from your X (Twitter) posts. Include images, maintain
           chronology, and share your thoughts beautifully.
         </p>
@@ -62,9 +62,9 @@ export default function HeroSection({ onUsernameSubmit, currentUsername }: HeroS
               placeholder="Enter your X/Twitter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 text-twitter-dark bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-twitter-blue focus:border-transparent shadow-sm"
+              className="w-full pl-10 pr-4 py-3 text-twitter-dark dark:text-white bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-twitter-blue focus:border-transparent shadow-sm"
             />
-            <User className="absolute left-3 top-3.5 w-5 h-5 text-twitter-gray" />
+            <User className="absolute left-3 top-3.5 w-5 h-5 text-twitter-gray dark:text-gray-400" />
           </div>
           <Button
             type="submit"
@@ -75,7 +75,7 @@ export default function HeroSection({ onUsernameSubmit, currentUsername }: HeroS
           </Button>
         </form>
 
-        <div className="flex items-center justify-center space-x-6 text-sm text-twitter-gray">
+        <div className="flex items-center justify-center space-x-6 text-sm text-twitter-gray dark:text-gray-400">
           <div className="flex items-center space-x-2">
             <CheckCircle className="w-4 h-4 text-green-500" />
             <span>Free to use</span>

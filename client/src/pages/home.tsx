@@ -12,7 +12,7 @@ export default function Home() {
   const [sortType, setSortType] = useState<string>("newest");
 
   return (
-    <div className="min-h-screen bg-twitter-bg">
+    <div className="min-h-screen bg-twitter-bg dark:bg-gray-900">
       <Header />
       <HeroSection 
         onUsernameSubmit={setCurrentUsername}

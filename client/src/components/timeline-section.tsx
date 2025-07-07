@@ -34,7 +34,7 @@ export default function TimelineSection({
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center py-16">
           <Loader2 className="w-8 h-8 animate-spin text-twitter-blue" />
-          <span className="ml-2 text-twitter-gray">Loading timeline...</span>
+          <span className="ml-2 text-twitter-gray dark:text-gray-400">Loading timeline...</span>
         </div>
       </main>
     );
@@ -44,7 +44,7 @@ export default function TimelineSection({
     return (
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-16">
-          <p className="text-twitter-gray">Timeline not found for @{username}</p>
+          <p className="text-twitter-gray dark:text-gray-400">Timeline not found for @{username}</p>
         </div>
       </main>
     );
@@ -113,8 +113,8 @@ export default function TimelineSection({
       {/* Timeline Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h3 className="text-2xl font-bold text-twitter-dark">Timeline for @{username}</h3>
-          <p className="text-twitter-gray mt-1">
+          <h3 className="text-2xl font-bold text-twitter-dark dark:text-white">Timeline for @{username}</h3>
+          <p className="text-twitter-gray dark:text-gray-400 mt-1">
             Showing {tweets.length} tweets
             {searchTerm && ` matching "${searchTerm}"`}
           </p>
@@ -131,7 +131,7 @@ export default function TimelineSection({
       {/* Timeline Container */}
       {tweets.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-twitter-gray">
+          <p className="text-twitter-gray dark:text-gray-400">
             {searchTerm || filterType !== 'all'
               ? 'No tweets found matching your filters.'
               : 'No tweets found for this user.'}

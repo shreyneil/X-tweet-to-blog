@@ -29,7 +29,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
   };
 
   return (
-    <Card className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
       <div className="p-6">
         <div className="flex items-start space-x-3">
           <div className="w-12 h-12 bg-gradient-to-br from-twitter-blue to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
@@ -37,10 +37,10 @@ export default function TweetCard({ tweet }: TweetCardProps) {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
-              <h4 className="font-semibold text-twitter-dark">{tweet.displayName}</h4>
-              <span className="text-twitter-gray">@{tweet.username}</span>
-              <span className="text-twitter-light-gray">•</span>
-              <time className="text-twitter-light-gray text-sm">
+              <h4 className="font-semibold text-twitter-dark dark:text-white">{tweet.displayName}</h4>
+              <span className="text-twitter-gray dark:text-gray-400">@{tweet.username}</span>
+              <span className="text-twitter-light-gray dark:text-gray-500">•</span>
+              <time className="text-twitter-light-gray dark:text-gray-500 text-sm">
                 {formatDate(tweet.createdAt)}
               </time>
               {tweet.isThread && (
@@ -51,14 +51,14 @@ export default function TweetCard({ tweet }: TweetCardProps) {
             </div>
             
             <div className="prose prose-twitter max-w-none">
-              <p className="text-twitter-dark mb-4 whitespace-pre-wrap">{tweet.content}</p>
+              <p className="text-twitter-dark dark:text-gray-200 mb-4 whitespace-pre-wrap">{tweet.content}</p>
             </div>
 
             {/* Thread Content */}
             {tweet.isThread && tweet.threadContent && (
-              <div className="bg-twitter-bg rounded-lg p-4 space-y-3 text-sm mb-4">
+              <div className="bg-twitter-bg dark:bg-gray-700 rounded-lg p-4 space-y-3 text-sm mb-4">
                 {tweet.threadContent.map((content, index) => (
-                  <p key={index} className="text-twitter-dark">
+                  <p key={index} className="text-twitter-dark dark:text-gray-200">
                     {index + 1}/ {content}
                   </p>
                 ))}
@@ -88,7 +88,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
             )}
 
             {/* Engagement Metrics */}
-            <div className="flex items-center space-x-6 text-twitter-gray text-sm">
+            <div className="flex items-center space-x-6 text-twitter-gray dark:text-gray-400 text-sm">
               <Button
                 variant="ghost"
                 size="sm"
