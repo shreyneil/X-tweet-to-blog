@@ -128,7 +128,7 @@ export default function TimelineSection({
         </Button>
       </div>
 
-      {/* Timeline Container */}
+      {/* Connected Timeline Container */}
       {tweets.length === 0 ? (
         <div className="text-center py-16 animate-fade-in-up">
           <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-twitter-blue/20 to-purple-500/20 rounded-full flex items-center justify-center">
@@ -141,16 +141,55 @@ export default function TimelineSection({
           </p>
         </div>
       ) : (
-        <div className="space-y-6 custom-scrollbar">
-          {tweets.map((tweet, index) => (
-            <div 
-              key={tweet.id} 
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <TweetCard tweet={tweet} />
+        <div className="relative connected-timeline">
+          {/* Timeline Items */}
+          <div className="space-y-8">
+            {tweets.map((tweet, index) => (
+              <div 
+                key={tweet.id} 
+                className="relative animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Timeline Node */}
+                <div className="absolute left-4 top-6 w-4 h-4 bg-white dark:bg-gray-800 border-2 border-twitter-blue rounded-full shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <div className="w-2 h-2 bg-twitter-blue rounded-full"></div>
+                </div>
+                
+                {/* Tweet Content */}
+                <div className="ml-16 relative">
+                  {/* Connection Line to Node */}
+                  <div className="absolute -left-12 top-6 w-8 h-0.5 timeline-connector"></div>
+                  
+                  <TweetCard tweet={tweet} />
+                  
+                  {/* Timeline Metadata */}
+                  <div className="mt-3 ml-3 text-xs text-twitter-gray dark:text-gray-500 flex items-center space-x-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg px-3 py-1 backdrop-blur-sm">
+                    <span className="font-semibold text-twitter-blue">#{tweets.length - index}</span>
+                    <span>•</span>
+                    <span>{new Date(tweet.createdAt).toLocaleDateString()}</span>
+                    {tweet.type && (
+                      <>
+                        <span>•</span>
+                        <span className="capitalize bg-twitter-blue/10 text-twitter-blue px-2 py-0.5 rounded-full text-xs font-medium">
+                          {tweet.type}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Timeline End Marker */}
+          <div className="relative mt-8">
+            <div className="absolute left-4 w-4 h-4 bg-gradient-to-br from-twitter-blue to-purple-500 rounded-full shadow-lg flex items-center justify-center">
+              <div className="w-2 h-2 bg-white rounded-full"></div>
             </div>
-          ))}
+            <div className="ml-16 text-sm text-twitter-gray dark:text-gray-400 italic">
+              End of timeline • {tweets.length} tweets shown
+            </div>
+          </div>
         </div>
       )}
     </main>

@@ -29,7 +29,10 @@ export default function TweetCard({ tweet }: TweetCardProps) {
   };
 
   return (
-    <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-premium border border-gray-100 dark:border-gray-700 overflow-hidden hover-lift animate-fade-in-up group">
+    <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-premium border border-gray-100 dark:border-gray-700 overflow-hidden hover-lift animate-fade-in-up group relative">
+      {/* Timeline Connection Indicator */}
+      <div className="absolute -left-4 top-6 w-2 h-2 bg-twitter-blue rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+      
       <div className="p-6 relative overflow-hidden">
         {/* Decorative background gradient */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-twitter-blue/5 to-purple-500/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-110 transition-transform duration-700"></div>
