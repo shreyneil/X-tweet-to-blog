@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertTimelineSchema } from "@shared/schema";
+import { insertTimelineSchema, type Tweet } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -43,16 +43,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (sort && typeof sort === "string") {
         switch (sort) {
           case "oldest":
-            tweets.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+            tweets.sort((a: Tweet, b: Tweet) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
             break;
           case "most-liked":
-            tweets.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+            tweets.sort((a: Tweet, b: Tweet) => (b.likes || 0) - (a.likes || 0));
             break;
           case "most-retweeted":
-            tweets.sort((a, b) => (b.retweets || 0) - (a.retweets || 0));
+            tweets.sort((a: Tweet, b: Tweet) => (b.retweets || 0) - (a.retweets || 0));
             break;
           default: // newest
-            tweets.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            tweets.sort((a: Tweet, b: Tweet) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         }
       }
       

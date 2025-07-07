@@ -17,7 +17,9 @@ TweetBlog is a full-stack web application that transforms Twitter timelines into
 - **Runtime**: Node.js with Express.js framework
 - **Language**: TypeScript with ES modules
 - **API Design**: RESTful API with JSON responses
-- **Database Integration**: Drizzle ORM configured for PostgreSQL with Neon Database serverless
+- **Database**: PostgreSQL with Neon Database serverless connection
+- **ORM**: Drizzle ORM with type-safe database operations
+- **Storage**: DatabaseStorage class implementing IStorage interface for timeline and tweet operations
 - **Development**: Hot module replacement with Vite integration in development mode
 
 ### Build System
@@ -29,7 +31,8 @@ TweetBlog is a full-stack web application that transforms Twitter timelines into
 
 ### Data Layer
 - **Database Schema**: PostgreSQL tables for tweets and timelines using Drizzle ORM
-- **Storage Interface**: Abstract storage layer with in-memory implementation for development
+- **Storage Interface**: Abstract storage layer with DatabaseStorage implementation for production
+- **Data Persistence**: PostgreSQL database with automatic seeding of sample data
 - **Data Validation**: Zod schemas for runtime type checking and API validation
 
 ### API Layer
@@ -84,6 +87,7 @@ TweetBlog is a full-stack web application that transforms Twitter timelines into
 
 Changelog:
 - July 07, 2025. Initial setup
+- July 07, 2025. Added PostgreSQL database integration with Drizzle ORM, replaced in-memory storage with DatabaseStorage, implemented automatic data seeding
 
 ## User Preferences
 
