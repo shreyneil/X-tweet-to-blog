@@ -27,12 +27,29 @@ export default function HeroSection({ onUsernameSubmit, currentUsername }: HeroS
         description: `Successfully generated timeline for @${username}`,
       });
     },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to generate timeline. Please try again.",
-        variant: "destructive",
-      });
+    onError: async (error: any) => {
+      try {
+        const errorData = await error.json();
+        if (errorData.code === 'RATE_LIMIT_EXCEEDED') {
+          toast({
+            title: "Rate Limit Exceeded",
+            description: "Twitter API rate limit reached. Try the demo username 'demo' or wait a few minutes.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: errorData.message || "Failed to generate timeline. Please try again.",
+            variant: "destructive",
+          });
+        }
+      } catch {
+        toast({
+          title: "Error",
+          description: "Failed to generate timeline. Please try again.",
+          variant: "destructive",
+        });
+      }
     },
   });
 
@@ -64,7 +81,7 @@ export default function HeroSection({ onUsernameSubmit, currentUsername }: HeroS
         <div className="glass rounded-xl p-6 mb-8 max-w-2xl mx-auto shadow-premium animate-pulse-glow">
           <p className="text-twitter-blue dark:text-blue-400 font-medium flex items-center justify-center space-x-2">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            <span>Now fetching real Twitter data! Try: elonmusk, twitter, github</span>
+            <span>Now fetching real Twitter data! Try: demo, elonmusk, twitter, github</span>
           </p>
         </div>
 

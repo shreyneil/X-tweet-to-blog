@@ -62,7 +62,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Generate timeline for a user (mock endpoint)
+  // Generate timeline for a user
   app.post("/api/generate-timeline", async (req, res) => {
     try {
       const { username } = z.object({ username: z.string() }).parse(req.body);
@@ -71,8 +71,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let timeline = await storage.getTimeline(username);
       
       if (!timeline) {
-        return res.status(404).json({ 
-          message: `Timeline not found for @${username}. Please check the username or try a different public Twitter account.` 
+        return res.status(429).json({ 
+          message: `Unable to generate timeline for @${username} at this time. Twitter API rate limits have been exceeded. Please try again in a few minutes, or try a different username.`,
+          code: 'RATE_LIMIT_EXCEEDED'
         });
       }
       
@@ -82,7 +83,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Timeline generated successfully" 
       });
     } catch (error) {
-      res.status(400).json({ message: "Invalid username provided" });
+      console.error('Error generating timeline:', error);
+      res.status(500).json({ 
+        message: "Failed to generate timeline. Please try again.",
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   });
 

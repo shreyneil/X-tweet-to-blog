@@ -41,7 +41,7 @@ export class DatabaseStorage implements IStorage {
         // Store tweets in database
         for (const tweet of twitterTweets) {
           await this.createTweet({
-            tweetId: tweet.id.toString(),
+            tweetId: tweet.tweetId,
             username: tweet.username,
             displayName: tweet.displayName,
             content: tweet.content,
@@ -58,7 +58,8 @@ export class DatabaseStorage implements IStorage {
             type: tweet.type,
             isVerified: tweet.isVerified,
             location: tweet.location,
-            language: tweet.language
+            language: tweet.language,
+            profileImageUrl: tweet.profileImageUrl
           });
         }
         
