@@ -150,7 +150,7 @@ export class TwitterService {
     const mentions = twitterTweet.entities?.mentions?.map(m => m.username) || [];
 
     return {
-      id: parseInt(twitterTweet.id),
+      tweetId: twitterTweet.id,
       username: user.username,
       displayName: user.name,
       content: twitterTweet.text,
@@ -167,7 +167,8 @@ export class TwitterService {
       type: this.determineType(twitterTweet.text, hashtags, images, videos),
       isVerified: false,
       location: null,
-      language: 'en'
+      language: 'en',
+      profileImageUrl: user.profile_image_url || null
     };
   }
 

@@ -38,9 +38,17 @@ export default function TweetCard({ tweet }: TweetCardProps) {
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-twitter-blue/5 to-purple-500/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-110 transition-transform duration-700"></div>
         
         <div className="flex items-start space-x-3 relative z-10">
-          <div className="w-12 h-12 bg-gradient-to-br from-twitter-blue to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-premium ring-2 ring-white/20 group-hover:ring-twitter-blue/30 transition-all duration-300">
-            {getInitials(tweet.displayName)}
-          </div>
+          {tweet.profileImageUrl ? (
+            <img 
+              src={tweet.profileImageUrl}
+              alt={`${tweet.displayName} profile`}
+              className="w-12 h-12 rounded-full object-cover shadow-premium ring-2 ring-white/20 group-hover:ring-twitter-blue/30 transition-all duration-300"
+            />
+          ) : (
+            <div className="w-12 h-12 bg-gradient-to-br from-twitter-blue to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-premium ring-2 ring-white/20 group-hover:ring-twitter-blue/30 transition-all duration-300">
+              {getInitials(tweet.displayName)}
+            </div>
+          )}
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
               <h4 className="font-semibold text-twitter-dark dark:text-white">{tweet.displayName}</h4>
