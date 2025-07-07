@@ -3,14 +3,14 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Header() {
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50">
+    <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-premium border-b border-gray-100/50 dark:border-gray-800/50 sticky top-0 z-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-twitter-blue rounded-full flex items-center justify-center">
-              <Twitter className="w-5 h-5 text-white" />
+          <div className="flex items-center space-x-3 group cursor-pointer">
+            <div className="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center shadow-premium group-hover:scale-110 transition-transform duration-300">
+              <Twitter className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold text-twitter-dark dark:text-white">TweetBlog</h1>
+            <h1 className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">TweetBlog</h1>
           </div>
           <div className="flex items-center space-x-6">
             <nav className="hidden md:flex items-center space-x-6">

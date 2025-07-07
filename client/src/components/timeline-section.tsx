@@ -130,17 +130,26 @@ export default function TimelineSection({
 
       {/* Timeline Container */}
       {tweets.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-twitter-gray dark:text-gray-400">
+        <div className="text-center py-16 animate-fade-in-up">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-twitter-blue/20 to-purple-500/20 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-twitter-blue/30 border-t-twitter-blue rounded-full animate-spin"></div>
+          </div>
+          <p className="text-twitter-gray dark:text-gray-400 text-lg font-medium">
             {searchTerm || filterType !== 'all'
               ? 'No tweets found matching your filters.'
               : 'No tweets found for this user.'}
           </p>
         </div>
       ) : (
-        <div className="space-y-6">
-          {tweets.map((tweet) => (
-            <TweetCard key={tweet.id} tweet={tweet} />
+        <div className="space-y-6 custom-scrollbar">
+          {tweets.map((tweet, index) => (
+            <div 
+              key={tweet.id} 
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <TweetCard tweet={tweet} />
+            </div>
           ))}
         </div>
       )}

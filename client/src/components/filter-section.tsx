@@ -20,8 +20,8 @@ export default function FilterSection({
   onSortChange,
 }: FilterSectionProps) {
   return (
-    <section className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <section className="glass border-b border-gray-100/50 dark:border-gray-700/50 backdrop-blur-lg">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 animate-fade-in-up">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
           {/* Search Bar */}
           <div className="relative flex-1 max-w-md">
