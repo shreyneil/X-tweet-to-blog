@@ -94,10 +94,25 @@ TweetBlog is a full-stack web application that transforms Twitter timelines into
 4. **Component-Based UI**: Modular, reusable components with consistent design system
 5. **Caching Strategy**: TanStack Query for efficient data fetching and state management
 
+## Deployment Strategy
+
+### GitHub Pages Deployment
+- **Frontend Deployment**: Static site deployment to GitHub Pages using GitHub Actions
+- **Workflow Configuration**: Automated deployment on push to main branch via `.github/workflows/deploy.yml`
+- **Build Process**: Frontend-only build using `vite build` for static hosting
+- **Demo Mode**: Includes demo timeline data for showcasing functionality without backend
+- **Documentation**: Complete deployment guide in `DEPLOYMENT.md`
+
+### Backend Hosting Options
+- **Development**: Local PostgreSQL with Replit environment
+- **Production**: Requires separate hosting (Vercel, Railway, Render, or Netlify Functions)
+- **API Integration**: Environment-based configuration for API endpoints
+
 ## Changelog
 
 Changelog:
 - July 07, 2025. Initial setup
+- July 07, 2025. Added GitHub Pages deployment configuration with automated workflows, deployment documentation, and frontend-only build process
 
 ## User Preferences
 
