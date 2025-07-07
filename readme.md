@@ -2,95 +2,117 @@
 
 ## Overview
 
-TweetBlog is a full-stack web application that transforms Twitter timelines into beautiful, readable blog-style formats. The application allows users to input a Twitter username and generates a clean, searchable timeline of tweets with filtering and sorting capabilities. Built with modern web technologies, it provides an intuitive interface for browsing and exporting social media content.
+TweetBlog is a full-stack web application that transforms Twitter timelines into beautiful, readable blog-style formats. The application allows users to input a Twitter username and generates a clean, organized timeline view with search, filtering, and sorting capabilities.
 
 ## System Architecture
 
 ### Frontend Architecture
-- **Framework**: React 18 with TypeScript and Vite for fast development and building
-- **UI Library**: Shadcn/ui components built on Radix UI primitives for accessible, customizable components
-- **Styling**: Tailwind CSS with custom Twitter-inspired color scheme and responsive design
-- **State Management**: TanStack Query (React Query) for server state management and caching
+- **Framework**: React 18 with TypeScript for type safety and modern development practices
+- **Build Tool**: Vite for fast development and optimized production builds
+- **UI Framework**: Shadcn/ui components built on Radix UI primitives for accessibility and customization
+- **Styling**: Tailwind CSS with custom Twitter-inspired design system and responsive layouts
+- **State Management**: TanStack Query (React Query) for efficient server state management and caching
 - **Routing**: Wouter for lightweight client-side routing
+- **Theme Support**: Built-in dark/light mode with system preference detection
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express.js framework
-- **Language**: TypeScript with ES modules
-- **API Design**: RESTful API with JSON responses
-- **Database**: PostgreSQL with Neon Database serverless connection
-- **ORM**: Drizzle ORM with type-safe database operations
-- **Storage**: DatabaseStorage class implementing IStorage interface for timeline and tweet operations
-- **Development**: Hot module replacement with Vite integration in development mode
-
-### Build System
-- **Frontend Build**: Vite with React plugin for optimized production builds
-- **Backend Build**: esbuild for fast TypeScript compilation and bundling
-- **Development**: Unified development server with proxy setup for seamless API integration
+- **Language**: TypeScript with ES modules for modern JavaScript features
+- **Database**: PostgreSQL with Neon Database serverless connection for scalability
+- **ORM**: Drizzle ORM for type-safe database operations and schema management
+- **API Design**: RESTful API with JSON responses and comprehensive error handling
+- **Development**: Hot module replacement with Vite integration for seamless development experience
 
 ## Key Components
 
 ### Data Layer
-- **Database Schema**: PostgreSQL tables for tweets and timelines using Drizzle ORM
-- **Storage Interface**: Abstract storage layer with DatabaseStorage implementation for production
-- **Data Persistence**: PostgreSQL database with automatic seeding of sample data
+- **Database Schema**: PostgreSQL tables for tweets and timelines with proper relationships
+- **Storage Interface**: Abstract storage layer with DatabaseStorage implementation
 - **Data Validation**: Zod schemas for runtime type checking and API validation
+- **Migration System**: Drizzle Kit for database schema migrations
 
 ### API Layer
-- **Timeline Operations**: CRUD operations for user timelines with metadata
-- **Tweet Management**: Search, filter, and sort functionality for tweet collections
+- **Timeline Operations**: Full CRUD operations for user timelines with metadata
+- **Tweet Management**: Advanced search, filtering, and sorting functionality
+- **Twitter Integration**: TwitterService for fetching data from Twitter API
 - **Error Handling**: Comprehensive error middleware with structured responses
 
 ### UI Components
-- **Timeline Display**: Card-based layout for tweet visualization with engagement metrics
+- **Timeline Display**: Card-based layout with engagement metrics and media support
 - **Search & Filter**: Real-time search with content type and popularity filters
 - **Responsive Design**: Mobile-first approach with progressive enhancement
+- **Theme System**: Consistent theming across light and dark modes
 
 ## Data Flow
 
 1. **User Input**: Username submission triggers timeline generation request
-2. **API Processing**: Backend validates request and queries/creates timeline data
-3. **Data Retrieval**: Tweets are fetched with applied filters and sorting
-4. **Client Rendering**: React components display timeline with interactive features
-5. **State Management**: TanStack Query handles caching and synchronization
+2. **Data Fetching**: Backend attempts to fetch timeline from database, falls back to Twitter API
+3. **Data Processing**: Raw Twitter data is transformed and stored in PostgreSQL
+4. **Frontend Display**: React components render timeline with real-time search and filtering
+5. **State Management**: TanStack Query manages caching and synchronization
 
 ## External Dependencies
 
-### Core Dependencies
-- **@neondatabase/serverless**: Serverless PostgreSQL database connection
-- **drizzle-orm**: Type-safe ORM with PostgreSQL dialect
-- **@tanstack/react-query**: Server state management and caching
-- **@radix-ui/***: Accessible component primitives
+### Frontend Dependencies
+- **@radix-ui/react-***: Accessible UI primitive components
+- **@tanstack/react-query**: Server state management
 - **tailwindcss**: Utility-first CSS framework
+- **wouter**: Lightweight routing library
+- **lucide-react**: Icon library
 
-### Development Tools
-- **tsx**: TypeScript execution for development
-- **vite**: Fast build tool and development server
-- **@replit/vite-plugin-***: Replit-specific development enhancements
+### Backend Dependencies
+- **express**: Web framework for Node.js
+- **drizzle-orm**: TypeScript ORM for PostgreSQL
+- **@neondatabase/serverless**: Neon Database client
+- **zod**: Schema validation library
+- **date-fns**: Date manipulation utilities
+
+### Development Dependencies
+- **vite**: Build tool and development server
+- **typescript**: Type checking and compilation
+- **drizzle-kit**: Database migration tool
+- **esbuild**: Fast JavaScript bundler
 
 ## Deployment Strategy
 
+### Development Environment
+- **Unified Development**: Single command starts both frontend and backend with hot reloading
+- **Database Seeding**: Automatic sample data generation for development
+- **Proxy Setup**: Vite proxy handles API requests during development
+
 ### Production Build
-- Frontend assets built to `dist/public` directory
-- Backend compiled to `dist/index.js` with external dependencies
-- Static file serving integrated with Express in production
+- **Frontend**: Vite builds optimized static assets
+- **Backend**: esbuild compiles TypeScript to optimized JavaScript
+- **Database**: Drizzle migrations ensure schema consistency
+- **Environment**: Node.js production server with static file serving
 
-### Environment Configuration
-- Database URL configuration via environment variables
-- Development/production mode detection for conditional features
-- Replit-specific optimizations for cloud deployment
+### Key Architectural Decisions
 
-### Database Migration
-- Drizzle Kit configuration for schema migrations
-- Push-based deployment model for rapid iteration
+1. **Monorepo Structure**: Shared types between frontend and backend for consistency
+2. **TypeScript Throughout**: Type safety across the entire application stack
+3. **Serverless Database**: Neon Database for scalability and reduced infrastructure management
+4. **Component-Based UI**: Modular, reusable components with consistent design system
+5. **Caching Strategy**: TanStack Query for efficient data fetching and state management
+
+## Deployment Strategy
+
+### GitHub Pages Deployment
+- **Frontend Deployment**: Static site deployment to GitHub Pages using GitHub Actions
+- **Workflow Configuration**: Automated deployment on push to main branch via `.github/workflows/deploy.yml`
+- **Build Process**: Frontend-only build using `vite build` for static hosting
+- **Demo Mode**: Includes demo timeline data for showcasing functionality without backend
+- **Documentation**: Complete deployment guide in `DEPLOYMENT.md`
+
+### Backend Hosting Options
+- **Development**: Local PostgreSQL with Replit environment
+- **Production**: Requires separate hosting (Vercel, Railway, Render, or Netlify Functions)
+- **API Integration**: Environment-based configuration for API endpoints
 
 ## Changelog
 
 Changelog:
 - July 07, 2025. Initial setup
-- July 07, 2025. Added PostgreSQL database integration with Drizzle ORM, replaced in-memory storage with DatabaseStorage, implemented automatic data seeding
-- July 07, 2025. Integrated real Twitter API for live data fetching with comprehensive error handling
-- July 07, 2025. Enhanced UI with premium animations, glass morphism effects, interactive hover states, gradient designs, and staggered loading animations
-- July 07, 2025. Migrated from Replit Agent to Replit environment with enhanced connected timeline view featuring visual timeline nodes, flowing connectors, and improved user experience
+- July 07, 2025. Added GitHub Pages deployment configuration with automated workflows, deployment documentation, and frontend-only build process
 
 ## User Preferences
 
